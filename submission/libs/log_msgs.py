@@ -7,13 +7,13 @@ version:        1.0
 """
 
 # ERR
-UNEXPECTED_TYPE_ERR = "ERR: Unexpected Type for Coordinate."
-INVALID_DIRECTION_ERR = "ERR: Invalid Direction."
-INVALID_COORD_RANEG_ERR = "ERR: Invalid Range for Coordinates."
-INVALID_ATTR_COUNT_ERR = "ERR: Invalid Attribute Count."
-INVALID_COMMAND_ERR = "ERR: Invalid Command."
-ROBOT_NOT_PLACED_ERR = "ERR: Robot not yet Placed on the Board."
-INVALID_COMMAND_FORMAT_ERR = "Err: Invalid Command Format."
+UNEXPECTED_TYPE_ERR = "ERR: Unexpected yype for coordinate."
+INVALID_DIRECTION_ERR = "ERR: invalid direction."
+INVALID_COORD_RANEG_ERR = "ERR: Invalid range for coordinates."
+INVALID_ATTR_COUNT_ERR = "ERR: Invalid attribute count."
+INVALID_COMMAND_ERR = "ERR: Invalid command."
+ROBOT_NOT_PLACED_ERR = "ERR: Robot not yet placed on the board."
+INVALID_COMMAND_FORMAT_ERR = "Err: Invalid command format."
 
 # INFO
-EXIT_PROGRAM_INFO = "INFO: Program Exit Command Received."
+EXIT_PROGRAM_INFO = "INFO: Program exit command received."
