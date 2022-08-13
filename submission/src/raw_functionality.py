@@ -113,7 +113,7 @@ def solution():
                 elif comm[0].upper() == "LEFT" or comm[0].upper() == "RIGHT":
                     f = getNewDirection(f, comm[0].upper()) # get new direction after turning
                 elif comm[0].upper() == "REPORT":
-                    print("Output: ", x, y, f)
+                    print(f"Output: {x}, {y}, {f}")
                 else:
                     print(INVALID_COMMAND_ERR)
                     continue
