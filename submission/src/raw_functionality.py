@@ -16,6 +16,35 @@ COMMANDS = ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"]
 GRID_X = 5
 GRID_Y = 5
 
+def defineGrid():
+    """Change the default grid dimensions.
+    """
+    while True: # get the new x dimension
+        newX = input(f"Please enter new x dimension (current is {GRID_X}): ")
+        try:
+            GRID_X = int(newX)
+            break
+        except:
+            if newX.upper() == "QUIT" or choice.upper() == "Q":
+                print(EXIT_PROGRAM_INFO)
+                break
+            print(INVALID_DIMENSION_ERR)
+            continue
+    
+    while True: # get the new y dimension
+        newY = input(f"Please enter new y dimension (current is {GRID_Y}): ")
+        try:
+            GRID_Y = int(newY)
+            break
+        except:
+            if newY.upper() == "QUIT" or choice.upper() == "Q":
+                print(EXIT_PROGRAM_INFO)
+                break
+            print(INVALID_DIMENSION_ERR)
+            continue
+
+    print(NEW_GRID_DIMENSIONS_SET_INFO)
+
 def getProcessedInput():
     """Processes the initial input command.
 
@@ -147,7 +176,7 @@ def turn(f, direction):
     
     return newF
 
-def solution():
+def playGame():
     """Driver functionality for the toy robot.
     """
     robotPlaced = False
@@ -178,7 +207,7 @@ def solution():
                 print(INVALID_COMMAND_ERR)
                 continue
         elif len(comm) == 1: # check for other commands
-            if comm[0].upper() == "QUIT": # loop termination request
+            if comm[0].upper() == "QUIT" or choice.upper() == "Q": # loop termination request
                 print(EXIT_PROGRAM_INFO)
                 break
             if not robotPlaced: # ignore until robot has been placed
@@ -200,4 +229,26 @@ def solution():
             print(INVALID_COMMAND_FORMAT_ERR)
             continue
 
-solution()
+# driver code
+print("Toy Robot Code Challenge")
+
+while True:
+    print("1. Setup grid dimesions.")
+    print("2. Play the game.")
+    choice = input("Select an option: ")
+    try:
+        choice = int(choice)
+        if choice == 1:
+            defineGrid()
+        elif choice == 2:
+            playGame()
+        else:
+            print(INVALID_CHOICE_ERR)
+            continue
+    except:
+        if choice.upper() == "QUIT" or choice.upper() == "Q":
+            print(EXIT_PROGRAM_INFO)
+            break
+        else:
+            print(INVALID_CHOICE_ERR)
+            continue
