@@ -1,4 +1,4 @@
-from ..libs import log_msgs
+from libs.log_msgs import *
 
 DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
 COMMANDS = ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"]
@@ -69,41 +69,41 @@ def solution():
                     try:
                         x = int(directions[0])
                     except:
-                        print(log_msgs.UNEXPECTED_TYPE_ERR)
+                        print(UNEXPECTED_TYPE_ERR)
                         continue
 
                     # vallidate y is number
                     try:
                         y = int(directions[1])
                     except:
-                        print(log_msgs.UNEXPECTED_TYPE_ERR)
+                        print(UNEXPECTED_TYPE_ERR)
                         continue
 
                     # validate face
                     if directions[2].upper() in DIRECTIONS:
                         f = directions[2].upper()
                     else:
-                        print(log_msgs.INVALID_DIRECTION_ERR)
+                        print(INVALID_DIRECTION_ERR)
                         continue
                     
                     # validate coordinates within the board
                     if validCoords(x,y):
                         robotPlaced = True
                     else:
-                        print(log_msgs.INVALID_COORD_RANEG_ERR)
+                        print(INVALID_COORD_RANEG_ERR)
                         continue
                 else:
-                    print(log_msgs.INVALID_ATTR_COUNT_ERR)
+                    print(INVALID_ATTR_COUNT_ERR)
                     continue
             else:
-                print(log_msgs.INVALID_COMMAND_ERR)
+                print(INVALID_COMMAND_ERR)
                 continue
         elif len(comm) == 1: # check for other commands
             if comm[0].upper() == "QUIT": # loop termination request
-                print(log_msgs.EXIT_PROGRAM_INFO)
+                print(EXIT_PROGRAM_INFO)
                 break
             if not robotPlaced: # ignore until robot has been placed
-                print(log_msgs.ROBOT_NOT_PLACED_ERR)
+                print(ROBOT_NOT_PLACED_ERR)
                 continue
             else: # for correct single word commands
                 if comm[0].upper() == "MOVE":
@@ -115,10 +115,10 @@ def solution():
                 elif comm[0].upper() == "REPORT":
                     print("Output: ", x, y, f)
                 else:
-                    print(log_msgs.INVALID_COMMAND_ERR)
+                    print(INVALID_COMMAND_ERR)
                     continue
         else: # invalid command structure
-            print(log_msgs.INVALID_COMMAND_FORMAT_ERR)
+            print(INVALID_COMMAND_FORMAT_ERR)
             continue
 
 solution()
