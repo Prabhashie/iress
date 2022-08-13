@@ -7,8 +7,8 @@ version:        1.0
 """
 
 # ERR
-UNEXPECTED_TYPE_ERR = "ERR: Unexpected yype for coordinate."
-INVALID_DIRECTION_ERR = "ERR: invalid direction."
+UNEXPECTED_TYPE_ERR = "ERR: Unexpected type for coordinate."
+INVALID_DIRECTION_ERR = "ERR: Invalid direction."
 INVALID_COORD_RANEG_ERR = "ERR: Invalid range for coordinates."
 INVALID_ATTR_COUNT_ERR = "ERR: Invalid attribute count."
 INVALID_COMMAND_ERR = "ERR: Invalid command."
