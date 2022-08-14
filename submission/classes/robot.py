@@ -6,7 +6,6 @@ purpose:        Class definition for the toy robot functionality
 version:        1.0
 """
 # imports
-from classes.grid import Grid
 from libs.log_msgs import *
 
 class Robot:
@@ -14,7 +13,7 @@ class Robot:
     Once an object is created, it can be used to provide instructions to move the robot on the board.
     If xDim and yDim are not specified, default grid will be 5X5.
     """
-    def __init__(self, grid: Grid) -> None:
+    def __init__(self, grid):
         """Constructor method.
         """
         self.x = None
@@ -22,12 +21,12 @@ class Robot:
         self.f = None
         self.grid = grid
 
-    def validCoords(grid: Grid, x: int, y: int):
-        if 0 <= x < grid.xDim and 0 <= y < grid.yDim:
+    def validCoords(self, x, y):
+        if 0 <= x < self.grid.xDim and 0 <= y < self.grid.yDim:
             return True
         return False
 
-    def place(self, x: int, y: int, f:str) -> None:
+    def place(self, x, y, f):
         """Places the robot in the grid location specified by x and y, facing the direction specified by f.
 
         :param x: Initial x position of the robot.
@@ -39,7 +38,7 @@ class Robot:
         :return: If placement is valid, log message.
         :rtype: bool, str or None
         """
-        if self.validCoords(self.grid, x, y):
+        if self.validCoords(x, y):
             self.x = x
             self.y = y
             self.f = f
@@ -47,7 +46,7 @@ class Robot:
         else:
             return False, INVALID_COORD_RANEG_ERR
 
-    def move(self) -> None:
+    def move(self):
         """Move the robot.
 
         :return: If move is valid, log message.
@@ -63,7 +62,7 @@ class Robot:
         else:
             newX = self.x - 1
         
-        if self.validCoords(self.grid, newX, newY): # validate coordinates within the board
+        if self.validCoords(newX, newY): # validate coordinates within the board
             self.x = newX
             self.y = newY
             return True, None
