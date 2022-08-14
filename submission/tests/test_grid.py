@@ -11,16 +11,17 @@ import unittest
 from classes.grid import Grid
 
 class TestGrid(unittest.TestCase):
+    def setUp(self):
+        self.grid = Grid()
+
     def test_init(self): # test init function
-        grid = Grid()
-        self.assertEqual(grid.xDim, 5)
-        self.assertEqual(grid.yDim, 5)
+        self.assertEqual(self.grid.xDim, 5)
+        self.assertEqual(self.grid.yDim, 5)
 
     def test_changeDims(self): # test changeDims function
-        grid = Grid()
-        grid.changeDims(7,7)
-        self.assertEqual(grid.xDim, 7)
-        self.assertEqual(grid.yDim, 7)
+        self.grid.changeDims(7,7)
+        self.assertEqual(self.grid.xDim, 7)
+        self.assertEqual(self.grid.yDim, 7)
 
 if __name__ == '__main__':
     unittest.main()

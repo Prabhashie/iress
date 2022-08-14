@@ -15,66 +15,58 @@ from classes.grid import Grid
 from libs.log_msgs import *
 
 class TestGrid(unittest.TestCase):
+    def setUp(self):
+        self.grid = Grid()
+        self.robot = Robot(self.grid)
+
     def test_init(self): # test init function
-        grid = Grid()
-        robot = Robot(grid)
-        self.assertEqual(robot.x, None)
-        self.assertEqual(robot.y, None)
-        self.assertEqual(robot.f, None)
-        self.assertIsInstance(robot.grid, Grid)
+        self.assertEqual(self.robot.x, None)
+        self.assertEqual(self.robot.y, None)
+        self.assertEqual(self.robot.f, None)
+        self.assertIsInstance(self.robot.grid, Grid)
     
     def test_validCoords(self): # test validCoords function
-        grid = Grid()
-        robot = Robot(grid)
-        self.assertTrue(robot.validCoords(3, 4))
-        self.assertFalse(robot.validCoords(6, 7))
-        self.assertFalse(robot.validCoords(4, 5))
-        self.assertFalse(robot.validCoords(5, 4))
-        self.assertFalse(robot.validCoords(5, 5))
+        self.assertTrue(self.robot.validCoords(3, 4))
+        self.assertFalse(self.robot.validCoords(6, 7))
+        self.assertFalse(self.robot.validCoords(4, 5))
+        self.assertFalse(self.robot.validCoords(5, 4))
+        self.assertFalse(self.robot.validCoords(5, 5))
 
     def test_place(self): # test place function
-        grid = Grid()
-        robot = Robot(grid)
-        self.assertEqual(robot.place(3, 4, "NORTH"), (True, None))
-        self.assertEqual(robot.x, 3)
-        self.assertEqual(robot.y, 4)
-        self.assertEqual(robot.f, "NORTH")
-        self.assertEqual(robot.place(6, 7, "NORTH"), (False, INVALID_COORD_RANEG_ERR))
+        self.assertEqual(self.robot.place(3, 4, "NORTH"), (True, None))
+        self.assertEqual(self.robot.x, 3)
+        self.assertEqual(self.robot.y, 4)
+        self.assertEqual(self.robot.f, "NORTH")
+        self.assertEqual(self.robot.place(6, 7, "NORTH"), (False, INVALID_COORD_RANEG_ERR))
 
     def test_move(self): # test move function
-        grid = Grid()
-        robot = Robot(grid)
-        robot.x = 3
-        robot.y = 4
-        robot.f = "EAST"
-        self.assertEqual(robot.move(), (True, None))
-        self.assertEqual(robot.x, 4)
-        self.assertEqual(robot.y, 4)
-        self.assertEqual(robot.f, "EAST")
-        self.assertEqual(robot.move(), (False, INVALID_COORD_RANEG_ERR))
+        self.robot.x = 3
+        self.robot.y = 4
+        self.robot.f = "EAST"
+        self.assertEqual(self.robot.move(), (True, None))
+        self.assertEqual(self.robot.x, 4)
+        self.assertEqual(self.robot.y, 4)
+        self.assertEqual(self.robot.f, "EAST")
+        self.assertEqual(self.robot.move(), (False, INVALID_COORD_RANEG_ERR))
 
     def test_turn(self): # test turn function
-        grid = Grid()
-        robot = Robot(grid)
-        robot.x = 3
-        robot.y = 4
-        robot.f = "SOUTH"
-        robot.turn("RIGHT")
-        self.assertEqual(robot.x, 3)
-        self.assertEqual(robot.y, 4)
-        self.assertEqual(robot.f, "WEST")
-        robot.turn("LEFT")
-        self.assertEqual(robot.f, "SOUTH")
+        self.robot.x = 3
+        self.robot.y = 4
+        self.robot.f = "SOUTH"
+        self.robot.turn("RIGHT")
+        self.assertEqual(self.robot.x, 3)
+        self.assertEqual(self.robot.y, 4)
+        self.assertEqual(self.robot.f, "WEST")
+        self.robot.turn("LEFT")
+        self.assertEqual(self.robot.f, "SOUTH")
 
     def test_report(self): # test report function
-        grid = Grid()
-        robot = Robot(grid)
-        robot.x = 3
-        robot.y = 4
-        robot.f = "WEST"
+        self.robot.x = 3
+        self.robot.y = 4
+        self.robot.f = "WEST"
         capturedOutput = StringIO()
         sys.stdout = capturedOutput
-        robot.report()
+        self.robot.report()
         sys.stdout = sys.__stdout__
         self.assertEqual(capturedOutput.getvalue(), "Output: 3, 4, WEST\n") # print statement adds the newline character to the end of printed line
 
