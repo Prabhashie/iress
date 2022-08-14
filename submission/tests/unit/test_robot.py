@@ -12,7 +12,7 @@ from io import StringIO
 import sys
 from classes.robot import Robot
 from classes.grid import Grid
-from libs.log_msgs import *
+from utils.log_msgs import *
 
 class TestGrid(unittest.TestCase):
     def setUp(self):
@@ -25,12 +25,12 @@ class TestGrid(unittest.TestCase):
         self.assertEqual(self.robot.f, None)
         self.assertIsInstance(self.robot.grid, Grid)
     
-    def test_validCoords(self): # test validCoords function
-        self.assertTrue(self.robot.validCoords(3, 4))
-        self.assertFalse(self.robot.validCoords(6, 7))
-        self.assertFalse(self.robot.validCoords(4, 5))
-        self.assertFalse(self.robot.validCoords(5, 4))
-        self.assertFalse(self.robot.validCoords(5, 5))
+    def test_valid_coords(self): # test validCoords function
+        self.assertTrue(self.robot.valid_coords(3, 4))
+        self.assertFalse(self.robot.valid_coords(6, 7))
+        self.assertFalse(self.robot.valid_coords(4, 5))
+        self.assertFalse(self.robot.valid_coords(5, 4))
+        self.assertFalse(self.robot.valid_coords(5, 5))
 
     def test_place(self): # test place function
         self.assertEqual(self.robot.place(3, 4, "NORTH"), (True, None))
