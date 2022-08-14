@@ -22,3 +22,14 @@ class Grid:
         """
         self.xDim = xDim
         self.yDim = yDim
+    
+    def changeDims(self, newX, newY) -> None:
+        """Change grid dimensions.
+
+        :param newX: New x dimension.
+        :type newX: int
+        :param newY: New y dimension.
+        :type newY: int
+        """
+        self.xDim = newX
+        self.yDim = newY
