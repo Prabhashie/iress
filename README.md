@@ -48,5 +48,4 @@ Notes:
     A robot that is not on the table ignores the MOVE, LEFT, RIGHT and REPORT commands.
 
 TODO:
-    OOP implementation of the functionality.
     Implement capability to accept commands from a file input.
