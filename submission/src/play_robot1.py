@@ -8,7 +8,7 @@ version:        1.0
 """
 
 # imports
-from libs.log_msgs import *
+from utils.log_msgs import *
 
 # constants
 DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
@@ -16,7 +16,7 @@ SINGULAR_COMMANDS = ["MOVE", "LEFT", "RIGHT", "REPORT"]
 GRID_X = 5
 GRID_Y = 5
 
-def reDefineGrid():
+def redefine_grid():
     """Change the default grid dimensions.
     """
     while True: # get the new x dimension
@@ -45,7 +45,7 @@ def reDefineGrid():
 
     print(NEW_GRID_DIMENSIONS_SET_INFO)
 
-def getProcessedInput():
+def get_processed_input():
     """Processes the initial input command.
 
     :return: List of constituents of the command.
@@ -57,7 +57,7 @@ def getProcessedInput():
 
     return comm
 
-def getProcessedArgs(args):
+def get_processed_args(args):
     """Processes the arguments for PLACE command.
 
     :param args: Args for the PLACE command.
@@ -71,7 +71,7 @@ def getProcessedArgs(args):
 
     return newArgs
 
-def validateArgs(args):
+def validate_args(args):
     """Validate args of the PLACE command.
 
     :param args: Args for the PLACE command.
@@ -105,7 +105,7 @@ def validateArgs(args):
     
     return True, errStr, x, y, f
 
-def validCoords(x, y):
+def valid_coords(x, y):
     """Validate x, y coordinate range.
 
     :param x: y coordinate.
@@ -133,15 +133,15 @@ def place(unprocessedArgs, x, y, f):
     :return: If place is valid, new x coordinate, new y coordinate, new facing direction.
     :rtype: bool, int, int, str
     """
-    args = getProcessedArgs(unprocessedArgs)
+    args = get_processed_args(unprocessedArgs)
     if len(args) == 3: # if there are 3 args in the later part of the command
         # validate arguments
-        validArgs, errStr, newX, newY, newF = validateArgs(args)
+        validArgs, errStr, newX, newY, newF = validate_args(args)
         if not validArgs:
             print(errStr)
             return False, x, y, f 
         # validate coordinates within the board
-        if not validCoords(newX, newY):
+        if not valid_coords(newX, newY):
             print(INVALID_COORD_RANEG_ERR)
             return False, x, y, f
         
@@ -162,7 +162,7 @@ def move(x, y, f):
     :return: If move is valid, new x coordinate, new y coordinate.
     :rtype: bool, int, int
     """
-    validCoords, newX, newY = True, x, y # assume new coords are valid
+    valid_coords, newX, newY = True, x, y # assume new coords are valid
     if f == "NORTH":
         newY = y + 1
     elif f == "SOUTH":
@@ -172,11 +172,11 @@ def move(x, y, f):
     else:
         newX = x - 1
     
-    if not validCoords(newX, newY): # validate coordinates within the board
+    if not valid_coords(newX, newY): # validate coordinates within the board
         print(INVALID_COORD_RANEG_ERR)
-        validCoords, newX, newY = False, x, y
+        valid_coords, newX, newY = False, x, y
     
-    return validCoords, newX, newY
+    return valid_coords, newX, newY
 
 def turn(f, direction):
     """Turn the robot.
@@ -224,14 +224,14 @@ def report(x, y, f):
     """
     print(f"Output: {x}, {y}, {f}")
 
-def playGame():
+def play_game():
     """Driver functionality for the toy robot.
     """
     robotPlaced = False
     x, y, f = None, None, None
 
     while True:
-        comm = getProcessedInput() # get processed input
+        comm = get_processed_input() # get processed input
 
         if len(comm) == 2: # PLACE command expected
             if comm[0].upper() == 'PLACE':
@@ -254,8 +254,8 @@ def playGame():
                 continue
             else: # for correct single word commands
                 if comm[0].upper() == "MOVE":
-                    validCoords, x, y = move(x, y, f) # get new coords if moved
-                    if not validCoords:
+                    valid_coords, x, y = move(x, y, f) # get new coords if moved
+                    if not valid_coords:
                         continue
                 elif comm[0].upper() == "LEFT" or comm[0].upper() == "RIGHT":
                     f = turn(f, comm[0].upper()) # get new direction after turning
@@ -275,9 +275,9 @@ while True:
     try:
         choice = int(choice)
         if choice == 1:
-            reDefineGrid()
+            redefine_grid()
         elif choice == 2:
-            playGame()
+            play_game()
         else:
             print(INVALID_CHOICE_ERR)
             continue

@@ -10,7 +10,7 @@ version:        1.0
 # imports
 from classes.grid import Grid
 from classes.robot import Robot
-from libs.log_msgs import *
+from utils.log_msgs import *
 
 # constants
 DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
@@ -20,7 +20,7 @@ SINGULAR_COMMANDS = ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"]
 grid = Grid()
 robot = Robot(grid)
 
-def reDefineGrid():
+def redefine_grid():
     """Change the default grid dimensions.
     """
     while True: # get the new x dimension
@@ -50,7 +50,7 @@ def reDefineGrid():
     grid.changeDims(newX, newY)
     print(NEW_GRID_DIMENSIONS_SET_INFO)
 
-def getProcessedInput():
+def get_processed_input():
     """Processes the initial input command.
 
     :return: List of constituents of the command.
@@ -62,7 +62,7 @@ def getProcessedInput():
 
     return comm
 
-def getProcessedArgs(args):
+def get_processed_args(args):
     """Processes the arguments for PLACE command.
 
     :param args: Args for the PLACE command.
@@ -76,7 +76,7 @@ def getProcessedArgs(args):
 
     return newArgs
 
-def validateArgs(args):
+def validate_args(args):
     """Validate args of the PLACE command.
 
     :param args: Args for the PLACE command.
@@ -109,19 +109,19 @@ def validateArgs(args):
     
     return True, errStr, x, y, f
 
-def playGame():
+def play_game():
     """Driver functionality for the toy robot.
     """
     robotPlaced = False
 
     while True:
-        comm = getProcessedInput() # get processed input
+        comm = get_processed_input() # get processed input
         if len(comm) == 2: # PLACE command expected
             if comm[0].upper() == 'PLACE':
-                args = getProcessedArgs(comm[1])
+                args = get_processed_args(comm[1])
                 if len(args) == 3: # if there are 3 args in the later part of the command
                     # validate arguments
-                    validArgs, errStr, newX, newY, newF = validateArgs(args)
+                    validArgs, errStr, newX, newY, newF = validate_args(args)
                     if not validArgs:
                         print(errStr)
                         continue
@@ -172,9 +172,9 @@ while True:
     try:
         choice = int(choice)
         if choice == 1:
-            reDefineGrid()
+            redefine_grid()
         elif choice == 2:
-            playGame()
+            play_game()
         else:
             print(INVALID_CHOICE_ERR)
             continue

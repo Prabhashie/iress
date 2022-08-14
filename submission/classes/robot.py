@@ -6,12 +6,15 @@ purpose:        Class definition for the toy robot functionality
 version:        1.0
 """
 # imports
-from libs.log_msgs import *
+from utils.log_msgs import *
 
 class Robot:
     """Robot class containing the basic movements of the toy robot. 
     Once an object is created, it can be used to provide instructions to move the robot on the board.
     If xDim and yDim are not specified, default grid will be 5X5.
+
+    :param grid: Grid class instance.
+    :type grid: Grid
     """
     def __init__(self, grid):
         """Constructor method.
@@ -21,7 +24,7 @@ class Robot:
         self.f = None
         self.grid = grid
 
-    def validCoords(self, x, y):
+    def valid_coords(self, x, y):
         if 0 <= x < self.grid.xDim and 0 <= y < self.grid.yDim:
             return True
         return False
@@ -38,7 +41,7 @@ class Robot:
         :return: If placement is valid, log message.
         :rtype: bool, str or None
         """
-        if self.validCoords(x, y):
+        if self.valid_coords(x, y):
             self.x = x
             self.y = y
             self.f = f
@@ -62,7 +65,7 @@ class Robot:
         else:
             newX = self.x - 1
         
-        if self.validCoords(newX, newY): # validate coordinates within the board
+        if self.valid_coords(newX, newY): # validate coordinates within the board
             self.x = newX
             self.y = newY
             return True, None
