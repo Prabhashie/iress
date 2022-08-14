@@ -12,11 +12,11 @@ from libs.log_msgs import *
 
 # constants
 DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
-COMMANDS = ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"]
+SINGULAR_COMMANDS = ["MOVE", "LEFT", "RIGHT", "REPORT"]
 GRID_X = 5
 GRID_Y = 5
 
-def defineGrid():
+def reDefineGrid():
     """Change the default grid dimensions.
     """
     while True: # get the new x dimension
@@ -25,7 +25,7 @@ def defineGrid():
             GRID_X = int(newX)
             break
         except:
-            if newX.upper() == "QUIT" or choice.upper() == "Q":
+            if newX.upper() == "QUIT" or newX.upper() == "Q":
                 print(EXIT_PROGRAM_INFO)
                 break
             print(INVALID_DIMENSION_ERR)
@@ -37,7 +37,7 @@ def defineGrid():
             GRID_Y = int(newY)
             break
         except:
-            if newY.upper() == "QUIT" or choice.upper() == "Q":
+            if newY.upper() == "QUIT" or newX.upper() == "Q":
                 print(EXIT_PROGRAM_INFO)
                 break
             print(INVALID_DIMENSION_ERR)
@@ -82,6 +82,7 @@ def validateArgs(args):
     errStr = ""
     x, y, f = None, None, None
 
+    # vallidate x is number
     try:
         x = int(args[0])
     except:
@@ -134,7 +135,7 @@ def place(unprocessedArgs, x, y, f):
     """
     args = getProcessedArgs(unprocessedArgs)
     if len(args) == 3: # if there are 3 args in the later part of the command
-        # validate x is number
+        # validate arguments
         validArgs, errStr, newX, newY, newF = validateArgs(args)
         if not validArgs:
             print(errStr)
@@ -211,6 +212,18 @@ def turn(f, direction):
     
     return newF
 
+def report(x, y, f):
+    """Output robot position details.
+
+    :param x: x coordinate.
+    :type x: int
+    :param y: y coordinate.
+    :type y: int
+    :param f: Facing direction.
+    :type f: str
+    """
+    print(f"Output: {x}, {y}, {f}")
+
 def playGame():
     """Driver functionality for the toy robot.
     """
@@ -230,9 +243,12 @@ def playGame():
                 print(INVALID_COMMAND_ERR)
                 continue
         elif len(comm) == 1: # check for other commands
-            if comm[0].upper() == "QUIT" or choice.upper() == "Q": # loop termination request
+            if comm[0].upper() == "QUIT" or  comm[0].upper() == "Q": # loop termination request
                 print(EXIT_PROGRAM_INFO)
                 break
+            if comm[0] not in SINGULAR_COMMANDS: # invalid command
+                print(INVALID_COMMAND_ERR)
+                continue
             if not robotPlaced: # ignore until robot has been placed
                 print(ROBOT_NOT_PLACED_ERR)
                 continue
@@ -243,11 +259,8 @@ def playGame():
                         continue
                 elif comm[0].upper() == "LEFT" or comm[0].upper() == "RIGHT":
                     f = turn(f, comm[0].upper()) # get new direction after turning
-                elif comm[0].upper() == "REPORT":
-                    print(f"Output: {x}, {y}, {f}")
                 else:
-                    print(INVALID_COMMAND_ERR)
-                    continue
+                    print(f"Output: {x}, {y}, {f}")
         else: # invalid command structure
             print(INVALID_COMMAND_FORMAT_ERR)
             continue
@@ -262,7 +275,7 @@ while True:
     try:
         choice = int(choice)
         if choice == 1:
-            defineGrid()
+            reDefineGrid()
         elif choice == 2:
             playGame()
         else:
