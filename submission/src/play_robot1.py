@@ -19,6 +19,7 @@ GRID_Y = 5
 def redefine_grid():
     """Change the default grid dimensions.
     """
+    global GRID_X, GRID_Y
     while True: # get the new x dimension
         newX = input(f"Please enter new x dimension (current is {GRID_X}): ")
         try:
@@ -67,7 +68,6 @@ def get_processed_args(args):
     """
     newArgs = args.strip().split(',')
     newArgs = [a.strip() for a in newArgs if a != "" and not a.isspace()] # remove leading or trailing whitespaces and empty args
-    print(newArgs)
 
     return newArgs
 
@@ -162,7 +162,7 @@ def move(x, y, f):
     :return: If move is valid, new x coordinate, new y coordinate.
     :rtype: bool, int, int
     """
-    valid_coords, newX, newY = True, x, y # assume new coords are valid
+    validCoords, newX, newY = True, x, y # assume new coords are valid
     if f == "NORTH":
         newY = y + 1
     elif f == "SOUTH":
@@ -174,9 +174,9 @@ def move(x, y, f):
     
     if not valid_coords(newX, newY): # validate coordinates within the board
         print(INVALID_COORD_RANEG_ERR)
-        valid_coords, newX, newY = False, x, y
+        validCoords, newX, newY = False, x, y
     
-    return valid_coords, newX, newY
+    return validCoords, newX, newY
 
 def turn(f, direction):
     """Turn the robot.
