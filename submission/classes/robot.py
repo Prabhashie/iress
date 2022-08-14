@@ -96,3 +96,15 @@ class Robot:
                 self.f = "SOUTH"
             else:
                 self.f = "NORTH"
+    
+    def report(self):
+        """Output robot position details.
+
+        :param x: x coordinate.
+        :type x: int
+        :param y: y coordinate.
+        :type y: int
+        :param f: Facing direction.
+        :type f: str
+        """
+        print(f"Output: {self.x}, {self.y}, {self.f}")
