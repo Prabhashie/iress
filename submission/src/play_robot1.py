@@ -1,5 +1,5 @@
 """
-file name:      raw_functionality.py
+file name:      play_robot1.py
 author:         Sachinthana Pathiranage
 date created:   09/08/2022
 purpose:        Contains the raw functionality for the requirement. 
@@ -76,7 +76,7 @@ def validateArgs(args):
 
     :param args: Args for the PLACE command.
     :type args: list
-    :return: ifValidArgs, errorString, x coordinate, y coordinate, direction. For invalid args, last three args will be of None type.
+    :return: If arguments are valid, error string, x coordinate, y coordinate, direction. For invalid args, last three args will be of None type.
     :rtype: bool, str, int, int, str
     """
     errStr = ""
@@ -114,23 +114,54 @@ def validCoords(x, y):
     :return: If coordinates are valid.
     :rtype: bool
     """
-    if x < GRID_X and y < GRID_Y:
+    if 0 <= x < GRID_X and 0 <= y < GRID_Y:
         return True
     return False
+
+def place(unprocessedArgs, x, y, f):
+    """Place the robot.
+
+    :param unprocessedArgs: New unprocessed arguments for PLACE command.
+    :type unprocessedArgs: str
+    :param x: Current x coordinate.
+    :type x: int or None
+    :param y: Current y coordinate.
+    :type y: int or None
+    :param f: Current facing direction.
+    :type f: str or None
+    :return: If place is valid, new x coordinate, new y coordinate, new facing direction.
+    :rtype: bool, int, int, str
+    """
+    args = getProcessedArgs(unprocessedArgs)
+    if len(args) == 3: # if there are 3 args in the later part of the command
+        # validate x is number
+        validArgs, errStr, newX, newY, newF = validateArgs(args)
+        if not validArgs:
+            print(errStr)
+            return False, x, y, f 
+        # validate coordinates within the board
+        if not validCoords(newX, newY):
+            print(INVALID_COORD_RANEG_ERR)
+            return False, x, y, f
+        
+        return True, newX, newY, newF
+    else:
+        print(INVALID_ATTR_COUNT_ERR)
+        return False, x, y, f
 
 def move(x, y, f):
     """Move the robot.
 
-    :param x: y coordinate.
+    :param x: x coordinate.
     :type x: int
     :param y: y coordinate.
     :type y: int
     :param f: Facing direction.
     :type f: str
-    :return: New x and y coordinates.
-    :rtype: int, int
+    :return: If move is valid, new x coordinate, new y coordinate.
+    :rtype: bool, int, int
     """
-    newX, newY = x, y
+    validCoords, newX, newY = True, x, y # assume new coords are valid
     if f == "NORTH":
         newY = y + 1
     elif f == "SOUTH":
@@ -140,7 +171,11 @@ def move(x, y, f):
     else:
         newX = x - 1
     
-    return newX, newY
+    if not validCoords(newX, newY): # validate coordinates within the board
+        print(INVALID_COORD_RANEG_ERR)
+        validCoords, newX, newY = False, x, y
+    
+    return validCoords, newX, newY
 
 def turn(f, direction):
     """Turn the robot.
@@ -187,22 +222,10 @@ def playGame():
 
         if len(comm) == 2: # PLACE command expected
             if comm[0].upper() == 'PLACE':
-                args = getProcessedArgs(comm[1])
-                if len(args) == 3: # if there are 3 args in the later part of the command
-                    # validate x is number
-                    validArgs, errStr, x, y, f = validateArgs(args)
-                    if not validArgs:
-                        print(errStr)
-                        continue
-                    # validate coordinates within the board
-                    if validCoords(x,y):
-                        robotPlaced = True
-                    else:
-                        print(INVALID_COORD_RANEG_ERR)
-                        continue
-                else:
-                    print(INVALID_ATTR_COUNT_ERR)
+                placeValid, x, y, f = place(comm[1], x, y, f)
+                if not placeValid:
                     continue
+                robotPlaced = True
             else:
                 print(INVALID_COMMAND_ERR)
                 continue
@@ -215,9 +238,9 @@ def playGame():
                 continue
             else: # for correct single word commands
                 if comm[0].upper() == "MOVE":
-                    newX, newY = move(x, y, f) # get new coords if moved
-                    if validCoords(newX, newY): # validate coordinates within the board
-                        x, y = newX, newY
+                    validCoords, x, y = move(x, y, f) # get new coords if moved
+                    if not validCoords:
+                        continue
                 elif comm[0].upper() == "LEFT" or comm[0].upper() == "RIGHT":
                     f = turn(f, comm[0].upper()) # get new direction after turning
                 elif comm[0].upper() == "REPORT":
