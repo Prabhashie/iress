@@ -7,6 +7,7 @@ Content:
     This file contains the implementation and testing for the IRESS Toy Robot Coding Challenge.
 
 Folder and file structure (iress/submission/):
+    classes: Contains the class files for the OOP implementation.
     libs: Contains the libraries required to execute the program. At the moment, provides logging capability.
     src: Source codes for the implementation. Contains a non-OOP approach and a OOP approach.
     tests: Test files for the functionality.
@@ -20,7 +21,8 @@ Application type: Console Application.
 How to run:
     1. Download the iress folder.
     2. Inside the iress/submission/ directory, run the command 'python setup.py install' to install the package import setup.
-    3. Inside the iress/submission/src directory, run raw_functionality.py as 'python raw_functionality.py'.
+    3. Inside the iress/submission/src directory, run play_robot1.py as 'python play_robot1.py'.
+    P.S. Whenever changes are done to the libraries, the setup file should be reinstalled in order for the changes to be reflected in other files.
 
 Input types:
     Currently implemented for standard input. 
