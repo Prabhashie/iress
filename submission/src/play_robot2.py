@@ -141,7 +141,7 @@ def play_game():
             if comm[0].upper() == "QUIT" or  comm[0].upper() == "Q": # loop termination request
                 print(EXIT_PROGRAM_INFO)
                 break
-            if comm[0] not in SINGULAR_COMMANDS: # invalid command
+            if comm[0].upper() not in SINGULAR_COMMANDS: # invalid command
                 print(INVALID_COMMAND_ERR)
                 continue
             if not robotPlaced: # ignore until robot has been placed
