@@ -47,7 +47,7 @@ def redefine_grid():
             print(INVALID_DIMENSION_ERR)
             continue
     
-    grid.changeDims(newX, newY)
+    grid.change_dims(newX, newY)
     print(NEW_GRID_DIMENSIONS_SET_INFO)
 
 def get_processed_input():
@@ -72,7 +72,6 @@ def get_processed_args(args):
     """
     newArgs = args.strip().split(',')
     newArgs = [a.strip() for a in newArgs if a != "" and not a.isspace()] # remove leading or trailing whitespaces and empty args
-    print(newArgs)
 
     return newArgs
 
