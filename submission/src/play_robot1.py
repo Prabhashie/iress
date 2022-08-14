@@ -16,36 +16,6 @@ SINGULAR_COMMANDS = ["MOVE", "LEFT", "RIGHT", "REPORT"]
 GRID_X = 5
 GRID_Y = 5
 
-def redefine_grid():
-    """Change the default grid dimensions.
-    """
-    global GRID_X, GRID_Y
-    while True: # get the new x dimension
-        newX = input(f"Please enter new x dimension (current is {GRID_X}): ")
-        try:
-            GRID_X = int(newX)
-            break
-        except:
-            if newX.upper() == "QUIT" or newX.upper() == "Q":
-                print(EXIT_PROGRAM_INFO)
-                break
-            print(INVALID_DIMENSION_ERR)
-            continue
-    
-    while True: # get the new y dimension
-        newY = input(f"Please enter new y dimension (current is {GRID_Y}): ")
-        try:
-            GRID_Y = int(newY)
-            break
-        except:
-            if newY.upper() == "QUIT" or newX.upper() == "Q":
-                print(EXIT_PROGRAM_INFO)
-                break
-            print(INVALID_DIMENSION_ERR)
-            continue
-
-    print(NEW_GRID_DIMENSIONS_SET_INFO)
-
 def get_processed_input():
     """Processes the initial input command.
 
@@ -67,7 +37,7 @@ def get_processed_args(args):
     :rtype: list
     """
     newArgs = args.strip().split(',')
-    newArgs = [a.strip() for a in newArgs if a != "" and not a.isspace()] # remove leading or trailing whitespaces and empty args
+    newArgs = [a.strip() for a in newArgs if a != "" and not a.isspace()] if len(newArgs) == 3 else [] # remove leading or trailing whitespaces and empty args
 
     return newArgs
 
@@ -265,26 +235,60 @@ def play_game():
             print(INVALID_COMMAND_FORMAT_ERR)
             continue
 
-# driver code
-print("Toy Robot Code Challenge")
-
-while True:
-    print("1. Setup grid dimesions.")
-    print("2. Play the game.")
-    choice = input("Select an option: ")
-    try:
-        choice = int(choice)
-        if choice == 1:
-            redefine_grid()
-        elif choice == 2:
-            play_game()
-        else:
-            print(INVALID_CHOICE_ERR)
-            continue
-    except:
-        if choice.upper() == "QUIT" or choice.upper() == "Q":
-            print(EXIT_PROGRAM_INFO)
+def redefine_grid():
+    """Change the default grid dimensions.
+    """
+    global GRID_X, GRID_Y
+    while True: # get the new x dimension
+        newX = input(f"Please enter new x dimension (current is {GRID_X}): ")
+        try:
+            GRID_X = int(newX)
             break
-        else:
-            print(INVALID_CHOICE_ERR)
+        except:
+            if newX.upper() == "QUIT" or newX.upper() == "Q":
+                print(EXIT_PROGRAM_INFO)
+                break
+            print(INVALID_DIMENSION_ERR)
             continue
+    
+    while True: # get the new y dimension
+        newY = input(f"Please enter new y dimension (current is {GRID_Y}): ")
+        try:
+            GRID_Y = int(newY)
+            break
+        except:
+            if newY.upper() == "QUIT" or newX.upper() == "Q":
+                print(EXIT_PROGRAM_INFO)
+                break
+            print(INVALID_DIMENSION_ERR)
+            continue
+
+    print(NEW_GRID_DIMENSIONS_SET_INFO)
+
+# driver code
+def main():
+    print("Toy Robot Code Challenge")
+
+    while True:
+        print("1. Setup grid dimesions.")
+        print("2. Play the game.")
+        choice = input("Select an option: ")
+        try:
+            choice = int(choice)
+            if choice == 1:
+                redefine_grid()
+            elif choice == 2:
+                play_game()
+            else:
+                print(INVALID_CHOICE_ERR)
+                continue
+        except:
+            if choice.upper() == "QUIT" or choice.upper() == "Q":
+                print(EXIT_PROGRAM_INFO)
+                break
+            else:
+                print(INVALID_CHOICE_ERR)
+                continue
+
+if __name__ == '__main__':
+    main()

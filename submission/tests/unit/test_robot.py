@@ -8,11 +8,11 @@ version:        1.0
 
 # imports
 import unittest
-from io import StringIO 
 import sys
 from classes.robot import Robot
 from classes.grid import Grid
 from utils.log_msgs import *
+from utils.test_utils import *
 
 class TestGrid(unittest.TestCase):
     def setUp(self):
@@ -57,18 +57,19 @@ class TestGrid(unittest.TestCase):
         self.assertEqual(self.robot.x, 3)
         self.assertEqual(self.robot.y, 4)
         self.assertEqual(self.robot.f, "WEST")
+
         self.robot.turn("LEFT")
+        self.assertEqual(self.robot.x, 3)
+        self.assertEqual(self.robot.y, 4)
         self.assertEqual(self.robot.f, "SOUTH")
 
     def test_report(self): # test report function
         self.robot.x = 3
         self.robot.y = 4
         self.robot.f = "WEST"
-        capturedOutput = StringIO()
-        sys.stdout = capturedOutput
+        stub_stdouts(self)
         self.robot.report()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(capturedOutput.getvalue(), "Output: 3, 4, WEST\n") # print statement adds the newline character to the end of printed line
+        self.assertEqual(sys.stdout.getvalue(), "Output: 3, 4, WEST\n") # print statement adds the newline character to the end of printed line
 
 if __name__ == '__main__':
     unittest.main()
