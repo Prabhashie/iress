@@ -14,7 +14,7 @@ from utils.log_msgs import *
 
 # constants
 DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
-SINGULAR_COMMANDS = ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"]
+SINGULAR_COMMANDS = ["MOVE", "LEFT", "RIGHT", "REPORT"]
 
 # global variables
 grid = Grid()
@@ -138,6 +138,7 @@ def redefine_grid():
         newX = input(f"Please enter new x dimension (current is {grid.xDim}): ")
         try:
             newX = int(newX)
+            grid.change_dimX(newX)
             print(NEW_GRID_DIMENSIONS_SET_INFO + f" New grid x dimension: {newX}.")
             break
         except:
@@ -151,6 +152,7 @@ def redefine_grid():
         newY = input(f"Please enter new y dimension (current is {grid.yDim}): ")
         try:
             newY = int(newY)
+            grid.change_dimY(newY)
             print(NEW_GRID_DIMENSIONS_SET_INFO + f" New grid y dimension: {newY}.")
             break
         except:
@@ -159,9 +161,6 @@ def redefine_grid():
                 break
             print(INVALID_DIMENSION_ERR)
             continue
-    
-    grid.change_dims(newX, newY)
-    print(NEW_GRID_DIMENSIONS_SET_INFO)
 
 # driver code
 def main():
