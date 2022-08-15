@@ -18,7 +18,7 @@ class TestPlayRobot1(unittest.TestCase):
     def setUp(self):
         play_robot1.GRID_X = 5
         play_robot1.GRID_Y = 5
-        
+
     def test_redefine_grid1(self): # dimensions correctly set but with incorrect values at first
         with mock.patch('builtins.input') as mockInput:
             with mock.patch('sys.stdout', new_callable = StringIO) as mockOutput:
@@ -69,7 +69,7 @@ class TestPlayRobot1(unittest.TestCase):
 
                 self.assertTrue(INVALID_COORD_RANEG_ERR in mockOutput.getvalue())
     
-    def test_play_game3(self): # invalid singular command
+    def test_play_game4(self): # invalid singular command
         with mock.patch('builtins.input') as mockInput:
             with mock.patch('sys.stdout', new_callable = StringIO) as mockOutput:
                 mockInput.side_effect = ["PLACE", "Q"]
@@ -77,7 +77,7 @@ class TestPlayRobot1(unittest.TestCase):
 
                 self.assertTrue(INVALID_COMMAND_ERR in mockOutput.getvalue())
     
-    def test_play_game3(self): # robot not placed on grid yet
+    def test_play_game5(self): # robot not placed on grid yet
         with mock.patch('builtins.input') as mockInput:
             with mock.patch('sys.stdout', new_callable = StringIO) as mockOutput:
                 mockInput.side_effect = ["MOVE", "Q"]
@@ -85,7 +85,7 @@ class TestPlayRobot1(unittest.TestCase):
 
                 self.assertTrue(ROBOT_NOT_PLACED_ERR in mockOutput.getvalue())
 
-    def test_play_game3(self): # correct inputs scenario 1
+    def test_play_game6(self): # correct inputs scenario 1
         with mock.patch('builtins.input') as mockInput:
             with mock.patch('sys.stdout', new_callable = StringIO) as mockOutput:
                 mockInput.side_effect = ["PLACE 0,0,NORTH", "MOVE", "REPORT", "Q"]
@@ -93,7 +93,7 @@ class TestPlayRobot1(unittest.TestCase):
 
                 self.assertTrue("Output: 0, 1, NORTH" in mockOutput.getvalue())
 
-    def test_play_game3(self): # correct inputs scenario 2
+    def test_play_game7(self): # correct inputs scenario 2
         with mock.patch('builtins.input') as mockInput:
             with mock.patch('sys.stdout', new_callable = StringIO) as mockOutput:
                 mockInput.side_effect = ["PLACE 0,0,NORTH", "LEFT", "REPORT", "Q"]
@@ -101,7 +101,7 @@ class TestPlayRobot1(unittest.TestCase):
 
                 self.assertTrue("Output: 0, 0, WEST" in mockOutput.getvalue())
 
-    def test_play_game3(self): # correct inputs scenario 3
+    def test_play_game8(self): # correct inputs scenario 3
         with mock.patch('builtins.input') as mockInput:
             with mock.patch('sys.stdout', new_callable = StringIO) as mockOutput:
                 mockInput.side_effect = ["PLACE 1,2,EAST", "MOVE", "MOVE", "LEFT", "MOVE", "REPORT", "Q"]
