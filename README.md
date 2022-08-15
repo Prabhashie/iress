@@ -28,6 +28,7 @@ Input types:
     Currently implemented for standard input.   
 
 Program commands:  
+    
     PLACE X,Y,F:  
         PLACE will put the toy robot on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST. 
         The origin (0,0) can be considered to be the SOUTH WEST most corner. 
