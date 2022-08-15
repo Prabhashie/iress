@@ -20,3 +20,4 @@ INVALID_COMMAND_FORMAT_ERR = "Err: Invalid command format."
 # INFO
 NEW_GRID_DIMENSIONS_SET_INFO = "INFO: Successfully updated new grid dimensions."
 EXIT_PROGRAM_INFO = "INFO: Program exit command received."
+PARAM_NOT_SET_INFO = "INFO: Parameter not reset."
