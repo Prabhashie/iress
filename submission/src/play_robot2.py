@@ -138,10 +138,11 @@ def redefine_grid():
         newX = input(f"Please enter new x dimension (current is {grid.xDim}): ")
         try:
             newX = int(newX)
+            print(NEW_GRID_DIMENSIONS_SET_INFO + f" New grid x dimension: {newX}.")
             break
         except:
             if newX.upper() == "QUIT" or newX.upper() == "Q":
-                print(EXIT_PROGRAM_INFO)
+                print(PARAM_NOT_SET_INFO + " Parameter: Grid x dimension.")
                 break
             print(INVALID_DIMENSION_ERR)
             continue
@@ -150,10 +151,11 @@ def redefine_grid():
         newY = input(f"Please enter new y dimension (current is {grid.yDim}): ")
         try:
             newY = int(newY)
+            print(NEW_GRID_DIMENSIONS_SET_INFO + f" New grid y dimension: {newY}.")
             break
         except:
-            if newY.upper() == "QUIT" or newX.upper() == "Q":
-                print(EXIT_PROGRAM_INFO)
+            if newY.upper() == "QUIT" or newY.upper() == "Q":
+                print(PARAM_NOT_SET_INFO + " Parameter: Grid y dimension.")
                 break
             print(INVALID_DIMENSION_ERR)
             continue
