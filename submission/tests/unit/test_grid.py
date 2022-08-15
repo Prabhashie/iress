@@ -18,9 +18,14 @@ class TestGrid(unittest.TestCase):
         self.assertEqual(self.grid.xDim, 5)
         self.assertEqual(self.grid.yDim, 5)
 
-    def test_change_dims(self): # test changeDims function
-        self.grid.change_dims(7,7)
+    def test_change_dimX(self): # test changeDimX function
+        self.grid.change_dimX(7)
         self.assertEqual(self.grid.xDim, 7)
+        self.assertEqual(self.grid.yDim, 5)
+
+    def test_change_dimX(self): # test changeDimY function
+        self.grid.change_dimY(7)
+        self.assertEqual(self.grid.xDim, 5)
         self.assertEqual(self.grid.yDim, 7)
 
 if __name__ == '__main__':
