@@ -1,6 +1,4 @@
-# iress
-
-IRESS Toy Robot Coding Challenge
+TOY ROBOT
 --------------------------------
 
 Content:  
